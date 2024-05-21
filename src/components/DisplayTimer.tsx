@@ -8,6 +8,6 @@ type DisplayTimerProps = {
 
 export const DisplayTimer = ({lights, timer}: DisplayTimerProps) => {
   return (
-    <div className={`h-[60px] w-[60px] rounded-full flex-center text-[26px] font-bold bg-black text-${lights.find(light => light.active)!.color}`}>{timer / 1000}</div>
+    <div className={`h-[60px] w-[60px] rounded-full flex-center text-[26px] font-bold bg-black `} style={{color: lights.find(light => light.active)!.color}}>{timer / 1000}</div>
   )
 }

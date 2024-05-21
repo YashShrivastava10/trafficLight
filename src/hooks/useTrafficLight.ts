@@ -8,12 +8,18 @@ export type Light = {
 }
 
 export const useTrafficLight = () => {
+
   const [lights, setLights] = useState<Light[]>([
-    {color: "red", action: "stop", timer: 4000, active: true},
+    {color: "red", action: "stop", timer: 10000, active: true},
+    {color: "green", action: "go", timer: 5000, active: false},
     {color: "yellow", action: "wait", timer: 1000, active: false},
-    {color: "green", action: "go", timer: 3000, active: false},
   ])
+
   const [currentTimer, setCurrentTimer] = useState<number>(lights[0].timer)
+
+  const order = ['stop', 'wait', 'go'];
+
+  const sortedOrder = lights.slice().sort((a, b) => order.indexOf(a.action) - order.indexOf(b.action));
 
   useEffect(() => {
     const activeLightIndex = lights.findIndex(light => light.active);
@@ -30,8 +36,7 @@ export const useTrafficLight = () => {
             active: index === nextLightIndex
           }));
           setLights(updatedLights);
-          setCurrentTimer(updatedLights[nextLightIndex].timer);
-          return 0;
+          return updatedLights[nextLightIndex].timer
         }
       });
     }, 1000);
@@ -39,5 +44,5 @@ export const useTrafficLight = () => {
     return () => clearTimeout(timerInterval);
   }, [lights]);
 
-  return { lights, currentTimer }
+  return { sortedOrder, currentTimer }
 }

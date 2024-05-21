@@ -5,12 +5,12 @@ import { DisplayTimer } from "./DisplayTimer";
 import { useTrafficLight } from "@/hooks/useTrafficLight";
 
 export default function TrafficLight() {
-  const { lights, currentTimer } = useTrafficLight()
+  const { sortedOrder, currentTimer } = useTrafficLight()
 
   return (
     <main className="w-full h-full flex-center flex-col gap-2">
-      <DisplayTimer lights={lights} timer={currentTimer}/>
-      <DisplayTrafficLight lights={lights}/>
+      <DisplayTimer lights={sortedOrder} timer={currentTimer}/>
+      <DisplayTrafficLight lights={sortedOrder}/>
     </main>
   );
 }
